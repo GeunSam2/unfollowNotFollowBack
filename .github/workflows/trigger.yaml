@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  unfollow:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,4 +22,8 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run main.py
+      env:
+        GH_USERNAME: ${{ secrets.GH_USERNAME }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        UNFOLLOW_WHITE_LIST: ${{ env.UNFOLLOW_WHITE_LIST }}
       run: python main.py
