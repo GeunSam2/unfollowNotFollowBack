@@ -25,5 +25,5 @@ jobs:
       env:
         GH_USERNAME: ${{ secrets.GH_USERNAME }}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        UNFOLLOW_WHITE_LIST: ${{ env.UNFOLLOW_WHITE_LIST }}
+        UNFOLLOW_WHITE_LIST: ${{ vars.UNFOLLOW_WHITE_LIST }}
       run: python main.py
