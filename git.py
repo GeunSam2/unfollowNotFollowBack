@@ -58,6 +58,7 @@ def unfollowGitUsers(users):
         if rate_limit_counter == 40:
             print('Rate limit reached')
             time.sleep(60)
+            rate_limit_counter = 0
             print('Rate limit reset')
 
 def followGitUsers(users):
@@ -74,6 +75,7 @@ def followGitUsers(users):
         if rate_limit_counter == 40:
             print('Rate limit reached')
             time.sleep(60)
+            rate_limit_counter = 0
             print('Rate limit reset')
 
 def parseOrgFollowersPageAndGetFollowers(html):
