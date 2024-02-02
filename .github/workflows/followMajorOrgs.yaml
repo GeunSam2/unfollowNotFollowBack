@@ -1,4 +1,4 @@
-name: Python Workflow
+name: Follow Major Cloud Organization's Followers
 
 on: 
   workflow_dispatch:
