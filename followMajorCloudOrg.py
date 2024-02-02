@@ -1,5 +1,4 @@
 from git import getOrgFollowers, unfollowGitUsers, followGitUsers
-import time
 
 unfollowGitUsers(['kubernetes', 'cncf', 'argoproj'])
 followGitUsers(['kubernetes', 'cncf', 'argoproj'])
