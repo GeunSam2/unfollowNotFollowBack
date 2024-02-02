@@ -1,4 +1,8 @@
 from git import getOrgFollowers, unfollowGitUsers, followGitUsers
+import time
+
+unfollowGitUsers(['kubernetes', 'cncf', 'argoproj'])
+followGitUsers(['kubernetes', 'cncf', 'argoproj'])
 
 cncfFollowers = getOrgFollowers('cncf')
 kubernetesFollowers = getOrgFollowers('kubernetes')
@@ -8,6 +12,3 @@ listToFollow = list(set(cncfFollowers) | set(kubernetesFollowers) | set(argoproj
 
 followGitUsers(listToFollow)
 print(f'following new {len(listToFollow)} users')
-
-unfollowGitUsers(['kubernetes', 'cncf', 'argoproj'])
-followGitUsers(['kubernetes', 'cncf', 'argoproj'])

@@ -45,7 +45,6 @@ def getNotFollowingBackUsers():
     return not_following_back_users
 
 def unfollowGitUsers(users):
-    rate_limit_counter = 0
     for user in users:
         url = f'https://api.github.com/user/following/{user}'
         response = requests.delete(url, auth=(GH_USERNAME, GH_TOKEN))
@@ -54,12 +53,6 @@ def unfollowGitUsers(users):
             rate_limit_counter += 1
         else:
             print(f'Error: {response.status_code}')
-        
-        if rate_limit_counter == 40:
-            print('Rate limit reached')
-            time.sleep(60)
-            rate_limit_counter = 0
-            print('Rate limit reset')
 
 def followGitUsers(users):
     rate_limit_counter = 0
@@ -69,6 +62,7 @@ def followGitUsers(users):
         if response.status_code == 204:
             print(f'{user} is followed')
             rate_limit_counter += 1
+            time.sleep(1)
         else:
             print(f'Error: {response.status_code}')
 
