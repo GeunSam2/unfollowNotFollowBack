@@ -1,6 +1,7 @@
 from environments import GH_USERNAME, GH_TOKEN
 import requests
 from bs4 import BeautifulSoup
+import time
 
 def recursiveRequestToGit(url, max_users=float('inf')):
     url = url + '?per_page=30'
@@ -43,23 +44,37 @@ def getNotFollowingBackUsers():
     not_following_back_users = list(set(following) - set(followers))
     return not_following_back_users
 
-def unfollowGitUsers(not_following_back):
-    for user in not_following_back:
+def unfollowGitUsers(users):
+    rate_limit_counter = 0
+    for user in users:
         url = f'https://api.github.com/user/following/{user}'
         response = requests.delete(url, auth=(GH_USERNAME, GH_TOKEN))
         if response.status_code == 204:
             print(f'{user} is unfollowed')
+            rate_limit_counter += 1
         else:
             print(f'Error: {response.status_code}')
+        
+        if rate_limit_counter == 40:
+            print('Rate limit reached')
+            time.sleep(60)
+            print('Rate limit reset')
 
 def followGitUsers(users):
+    rate_limit_counter = 0
     for user in users:
         url = f'https://api.github.com/user/following/{user}'
         response = requests.put(url, auth=(GH_USERNAME, GH_TOKEN))
         if response.status_code == 204:
             print(f'{user} is followed')
+            rate_limit_counter += 1
         else:
             print(f'Error: {response.status_code}')
+
+        if rate_limit_counter == 40:
+            print('Rate limit reached')
+            time.sleep(60)
+            print('Rate limit reset')
 
 def parseOrgFollowersPageAndGetFollowers(html):
     soup = BeautifulSoup(html, 'html.parser')
