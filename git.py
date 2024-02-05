@@ -58,18 +58,23 @@ def followGitUsers(users):
     for user in users:
         url = f'https://api.github.com/user/following/{user}'
         response = requests.put(url, auth=(GH_USERNAME, GH_TOKEN))
+        
         if response.status_code == 204:
-            print(f'{user} is followed')
-            rate_limit_counter += 1
+            print(f'{user} is followed. counter: {rate_limit_counter}')
             time.sleep(1)
         else:
             print(f'Error: {response.status_code}')
+            if (response.status_code == 429):
+                print('Rate limit reached unexpectedly. so break')
+                break
 
-        if rate_limit_counter == 40:
-            print('Rate limit reached')
+        rate_limit_counter += 1
+
+        if rate_limit_counter >= 40:
+            print('## Rate limit reached')
             time.sleep(60)
             rate_limit_counter = 0
-            print('Rate limit reset')
+            print('## Rate limit reset')
 
 def parseOrgFollowersPageAndGetFollowers(html):
     soup = BeautifulSoup(html, 'html.parser')
