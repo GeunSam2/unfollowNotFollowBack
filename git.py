@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import time
 
 def recursiveRequestToGit(url, max_users=float('inf')):
-    url = url + '?per_page=30'
+    url = url + '?per_page=100'
     objs = []
 
     while len(objs) < max_users:
