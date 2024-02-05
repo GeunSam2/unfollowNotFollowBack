@@ -50,7 +50,6 @@ def unfollowGitUsers(users):
         response = requests.delete(url, auth=(GH_USERNAME, GH_TOKEN))
         if response.status_code == 204:
             print(f'{user} is unfollowed')
-            rate_limit_counter += 1
         else:
             print(f'Error: {response.status_code}')
 
